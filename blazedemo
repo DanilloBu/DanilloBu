@@ -1,0 +1,27 @@
+import requests
+import statistics
+from time import time
+
+# Defina a URL do website
+url = "https://www.blazedemo.com"
+
+# Defina o número de requisições a serem feitas
+num_requests = 250
+
+# Lista para armazenar os tempos de resposta
+response_times = []
+
+# Realize as requisições e registre os tempos de resposta
+for _ in range(num_requests):
+    start_time = time()  # Início da requisição
+    response = requests.get(url)
+    end_time = time()  # Fim da requisição
+
+    response_time = end_time - start_time
+    response_times.append(response_time)
+
+# Calcule o 90º percentil dos tempos de resposta
+percentile_90 = statistics.quantiles(response_times, n=10)[9]
+
+# Imprima o resultado
+print(f"90th Percentile: {percentile_90} seconds")
